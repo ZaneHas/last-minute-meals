@@ -5,15 +5,20 @@ Outputs: A CSV with a list of food items in the reciept
 Uses CV  to extract text from the receipt image, and uses NLP to
 translate those abbreviations into words
 '''
-from PIL import Image
+
 import pytesseract
+import re
+import csv
+from pytesseract import Output
+import cv2
 import enchant
+import pandas as pd
 import food_word_cleaner as foodnlp
 
 # text extraction
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Blueberry\AppData\Local\Programs\Tesseract-OCR\tesseract'
 receipt_text = pytesseract.image_to_string(r'receipt_demo_abr.png')
-m = re.findall(r"MASTER-AIRWAYBILL NO: [\d—-]+", receipt_text)
+m = re.findall(r"WALMART NO: [\d—-]+", receipt_text)
 # receipt_text_list = []
 # receipt_text_list = receipt_text.split()
 
@@ -29,7 +34,25 @@ inputWords = food_words_list
 suggested_words_list = []
 for word in inputWords:
     suggested_words_list.append(wordDict.suggest(word))
-    print(wordDict.suggest(word))
+    #print(wordDict.suggest(word))
 
+# output to csv
+with open('cleaned_foods_list.csv', 'w', newline='') as myfile:
+    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+    wr.writerow(suggested_words_list)
 
+# display csv head
+data = pd.read_csv("cleaned_foods_list.csv")
+data.head()
+
+#display ocr visualization
+img = cv2.imread('receipt_demo_abr.png')
+d = pytesseract.image_to_data(img, output_type=Output.DICT)
+n_boxes = len(d['level'])
+for i in range(n_boxes):
+    (x, y, w, h) = (d['left'][i], d['top'][i], d['width'][i], d['height'][i])
+    img = cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+cv2.imshow('img', img)
+cv2.waitKey(0)
+cv2.imwrite("receipt_demo_abr_ocr.png", img)
 
