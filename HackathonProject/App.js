@@ -37,6 +37,7 @@ const LoginScreen = ({ navigation, route }) => {
 
     const [pass_value, onChangePassText] = React.useState();
 
+   const logo = require('./images/LastMinuteMeals_Logo.PNG');
 
   return (
         <View
@@ -46,6 +47,18 @@ const LoginScreen = ({ navigation, route }) => {
             justifyContent: 'space-evenly',
             alignItems: 'stretch',
           }}>
+
+           <Image source={logo} // Use item to set the image source
+                            style={{
+                              width:260,
+                              height:300,
+                              borderWidth:2,
+                              borderColor:'#d35647',
+                              resizeMode:'contain',
+                              margin:8
+                            }}
+                          />
+
                 <TextInput
                   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                   placeholder="username"
