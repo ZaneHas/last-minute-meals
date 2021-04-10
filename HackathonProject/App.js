@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import type {Node} from 'react';
+import CheckBox from '@react-native-community/checkbox';
 import {
   SafeAreaView,
   ScrollView,
@@ -14,7 +15,9 @@ import {
   View,
   Button,
   TextInput,
-  FlatList
+  FlatList,
+  Linking,
+  Image
 } from 'react-native';
 
 import {
@@ -26,6 +29,8 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 const Stack = createStackNavigator();
+
+
 
 const LoginScreen = ({ navigation, route }) => {
     const [value, onChangeText] = React.useState();
@@ -101,7 +106,7 @@ const HomeScreen = ({ navigation }) => {
                  }/>
 
                         <Button
-                           title="View Recepies"
+                           title="View Recipes"
                            onPress={() => navigation.navigate('Local Options')
                            }/>
 
@@ -163,22 +168,39 @@ const RecyclingTips = ({ navigation, route }) => {
             justifyContent: 'space-evenly',
             alignItems: 'center',
           }}>
-                <Text>hi</Text>
+                <Text>Here are some link where you can learn more about how to recycle!</Text>
+
+                      <Text style={{color: 'blue'}}
+                      onPress={() => Linking.openURL('https://www.epa.gov/recycle/recycling-basics')}>
+                      EPA Recycling Basics</Text>
     </View>
   );
 };
 
 const Settings = ({ navigation, route }) => {
-
+  const [vegan_toggleCheckBox, vegan_setToggleCheckBox] = React.useState(false);
+    const [vegetarian_toggleCheckBox, vegetarian_setToggleCheckBox] = React.useState(false);
   return (
         <View
           style={{
             flex: 1,
             flexDirection: 'column',
-            justifyContent: 'space-evenly',
+            justifyContent: 'center',
             alignItems: 'center',
           }}>
-                <Text>hi</Text>
+          <Text>Only Show Vegan Recepies</Text>
+                  <CheckBox
+                    disabled={false}
+                    value={vegan_toggleCheckBox}
+                    onValueChange={(newValue) => vegan_setToggleCheckBox(newValue)}
+                  />
+          <Text>Only Show Vegetarian Recepies</Text>
+
+                    <CheckBox
+                      disabled={false}
+                      value={vegetarian_toggleCheckBox}
+                      onValueChange={(newValue) => vegetarian_setToggleCheckBox(newValue)}
+                    />
     </View>
   );
 };
@@ -194,15 +216,20 @@ const LocalOptions = ({ navigation, route }) => {
             alignItems: 'center',
           }}>
                          <Button
-                            title="Recommended Recepies"
+                            title="Recommended Recipes"
+                              onPress={() => navigation.navigate('Recipe List', { array: [{key: 'quiche'}, {key: 'beef taco'}] })   }
                             />
 
                       <Button
-                         title="Eco-Friendly Recepies"
+                         title="Eco-Friendly Recipes"
+                                onPress={() => navigation.navigate('Recipe List', { array: [{key: 'quiche'}, {key: 'beef taco'}] })   }
+
                          />
 
                                 <Button
-                                   title="All Recepies"
+                                   title="All Recipes"
+                               onPress={() => navigation.navigate('Recipe List', { array: [{key: 'quiche'}, {key: 'beef taco'}] })   }
+
                                    />
 
     </View>
@@ -210,6 +237,54 @@ const LocalOptions = ({ navigation, route }) => {
 };
 
 const VirtualFridge = ({ navigation, route }) => {
+
+const array = route.params.array;
+console.log("arr: ",array);
+var image_array = [{key: 'banana'}, {key: 'milk'},{key:'apple'}];
+
+const [images, set_images] = React.useState([{key:require('./images/banana.jpg')},{key:require('./images/milk.jpg')},{key:require('./images/apple.jpg')}]);
+var index = 0;
+  return (
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+          }}>
+          <FlatList
+              horizontal={true}
+              showsHorizontalScrollIndicator={true}
+              data={images}
+              renderItem={ ({ item, index }) => (
+                <Image source={item.key} // Use item to set the image source
+                  key={index} // Important to set a key for list items
+                  style={{
+                    width:260,
+                    height:300,
+                    borderWidth:2,
+                    borderColor:'#d35647',
+                    resizeMode:'contain',
+                    margin:8
+                  }}
+                />
+                    )}
+
+
+
+                  />
+
+                <Text>Refrigerator List:</Text>
+                <FlatList
+                data={array}
+                renderItem={({item}) =>
+                <Text>{item.key}</Text>}
+                />
+    </View>
+  );
+};
+
+const RecipeList = ({ navigation, route }) => {
 
 const array = route.params.array;
 console.log("arr: ",array);
@@ -222,7 +297,7 @@ console.log("arr: ",array);
             justifyContent: 'space-evenly',
             alignItems: 'center',
           }}>
-                <Text>Refrigorator List:</Text>
+                <Text>Recipe List:</Text>
                 <FlatList
                 data={array}
                 renderItem={({item}) =>
@@ -235,7 +310,9 @@ console.log("arr: ",array);
 
 
 const App = () => {
+
   return (
+
     <NavigationContainer>
       <Stack.Navigator>
 
@@ -246,6 +323,7 @@ const App = () => {
         <Stack.Screen name="Settings" component={Settings}/>
         <Stack.Screen name="Local Options" component={LocalOptions}/>
         <Stack.Screen name="Virtual Fridge" component={VirtualFridge}/>
+        <Stack.Screen name="Recipe List" component={RecipeList}/>
 
 
       </Stack.Navigator>
