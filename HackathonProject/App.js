@@ -37,7 +37,7 @@ const LoginScreen = ({ navigation, route }) => {
 
     const [pass_value, onChangePassText] = React.useState();
 
-   const logo = require('./images/LastMinuteMeals_Logo.PNG');
+   const logo = require('./images/LastMinuteMeals_Logo.png');
 
   return (
         <View
@@ -55,6 +55,7 @@ const LoginScreen = ({ navigation, route }) => {
                               borderWidth:2,
                               borderColor:'#d35647',
                               resizeMode:'contain',
+                              alignItems: 'center',
                               margin:8
                             }}
                           />
