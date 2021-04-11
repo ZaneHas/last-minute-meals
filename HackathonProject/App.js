@@ -250,6 +250,17 @@ const styles = StyleSheet.create({
 const Settings = ({ navigation, route }) => {
   const [vegan_toggleCheckBox, vegan_setToggleCheckBox] = React.useState(false);
     const [vegetarian_toggleCheckBox, vegetarian_setToggleCheckBox] = React.useState(false);
+    const [keto_toggleCheckBox, keto_setToggleCheckBox] = React.useState(false);
+    const [under30_toggleCheckBox, under30_setToggleCheckBox] = React.useState(false);
+    const [under5_toggleCheckBox, under5_setToggleCheckBox] = React.useState(false);
+    const [dairyfree_toggleCheckBox, dairyfree_setToggleCheckBox] = React.useState(false);
+    const [glutenfree_toggleCheckBox, glutenfree_setToggleCheckBox] = React.useState(false);
+    const [eggfree_toggleCheckBox, eggfree_setToggleCheckBox] = React.useState(false);
+    const [fishfree_toggleCheckBox, fishfree_setToggleCheckBox] = React.useState(false);
+    const [shellfishfree_toggleCheckBox, shellfishfree_setToggleCheckBox] = React.useState(false);
+    const [treenutfree_toggleCheckBox, treenutfree_setToggleCheckBox] = React.useState(false);
+    const [peanutfree_toggleCheckBox, peanutfree_setToggleCheckBox] = React.useState(false);
+    const [soybeanfree_toggleCheckBox, soybeanfree_setToggleCheckBox] = React.useState(false);
   const styles = StyleSheet.create({
     image: {
       flex: 1,
@@ -282,6 +293,84 @@ const Settings = ({ navigation, route }) => {
                       value={vegetarian_toggleCheckBox}
                       onValueChange={(newValue) => vegetarian_setToggleCheckBox(newValue)}
                     />
+           <Text>Only Show Keto Recepies</Text>
+
+                               <CheckBox
+                                 disabled={false}
+                                 value={keto_toggleCheckBox}
+                                 onValueChange={(newValue) => keto_setToggleCheckBox(newValue)}
+                               />
+            <Text>Only Show Recipes Made in Under 30 Minutes</Text>
+
+                                           <CheckBox
+                                             disabled={false}
+                                             value={under30_toggleCheckBox}
+                                             onValueChange={(newValue) => under30_setToggleCheckBox(newValue)}
+                                           />
+            <Text>Only Show Recipes Under $5 Per Serving</Text>
+
+                                           <CheckBox
+                                             disabled={false}
+                                             value={under5_toggleCheckBox}
+                                             onValueChange={(newValue) => under5_setToggleCheckBox(newValue)}
+                                           />
+            <Text>Only Show Dairy Free Recipes</Text>
+
+                                                       <CheckBox
+                                                         disabled={false}
+                                                         value={dairyfree_toggleCheckBox}
+                                                         onValueChange={(newValue) => dairyfree_setToggleCheckBox(newValue)}
+                                                       />
+            <Text>Only Show Gluten Free Recipes</Text>
+
+                                                                   <CheckBox
+                                                                     disabled={false}
+                                                                     value={glutenfree_toggleCheckBox}
+                                                                     onValueChange={(newValue) => glutenfree_setToggleCheckBox(newValue)}
+                                                                   />
+            <Text>Only Show Egg Free Recipes</Text>
+
+                                                                   <CheckBox
+                                                                     disabled={false}
+                                                                     value={eggfree_toggleCheckBox}
+                                                                     onValueChange={(newValue) => eggfree_setToggleCheckBox(newValue)}
+                                                                   />
+           <Text>Only Show Fish Free Recipes</Text>
+
+                                                                  <CheckBox
+                                                                    disabled={false}
+                                                                    value={fishfree_toggleCheckBox}
+                                                                    onValueChange={(newValue) => fishfree_setToggleCheckBox(newValue)}
+                                                                  />
+           <Text>Only Show Shellfish Free Recipes</Text>
+
+                                                                  <CheckBox
+                                                                    disabled={false}
+                                                                    value={shellfishfree_toggleCheckBox}
+                                                                    onValueChange={(newValue) => shellfishfree_setToggleCheckBox(newValue)}
+                                                                  />
+           <Text>Only Show Tree Nut Free Recipes</Text>
+
+                                                                  <CheckBox
+                                                                    disabled={false}
+                                                                    value={treenutfree_toggleCheckBox}
+                                                                    onValueChange={(newValue) => treenutfree_setToggleCheckBox(newValue)}
+                                                                  />
+             <Text>Only Show Peanut Free Recipes</Text>
+
+                                                                    <CheckBox
+                                                                      disabled={false}
+                                                                      value={peanutfree_toggleCheckBox}
+                                                                      onValueChange={(newValue) => peanutfree_setToggleCheckBox(newValue)}
+                                                                      />
+
+                <Text>Only Show Soybean Free Recipes</Text>
+
+                                                                       <CheckBox
+                                                                         disabled={false}
+                                                                         value={soybeanfree_toggleCheckBox}
+                                                                         onValueChange={(newValue) => soybeanfree_setToggleCheckBox(newValue)}
+                                                                       />
                     </ImageBackground>
     </View>
   );
@@ -310,13 +399,13 @@ const styles = StyleSheet.create({
                          <Button
                             title="Recommended Recipes"
                             color='#6c0102'
-                              onPress={() => navigation.navigate('Recipe List', { array: [{key: 'quiche'}, {key: 'beef taco'}] })   }
+                              onPress={() => navigation.navigate('Recipe List', { array: [{key: 'Banana Pancakes: https://www.allrecipes.com/recipe/20334/banana-pancakes-i/'}, {key: 'Pan Sheet Ratatouille: https://www.allrecipes.com/recipe/261607/sheet-pan-ratatouille/'}] })   }
                             />
 
                       <Button
                          title="Eco-Friendly Recipes"
                          color='#6c0102'
-                                onPress={() => navigation.navigate('Recipe List', { array: [{key: 'quiche'}, {key: 'beef taco'}] })   }
+                                onPress={() => navigation.navigate('Recipe List', { array: [{key: 'Banana Pancakes: https://www.allrecipes.com/recipe/20334/banana-pancakes-i/'}] })   }
 
                          />
 
