@@ -5,7 +5,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import type {Node} from 'react';
 import CheckBox from '@react-native-community/checkbox';
-import axios from 'axios'
 import {
   SafeAreaView,
   ScrollView,
@@ -19,8 +18,7 @@ import {
   FlatList,
   Linking,
   Image,
-  ImageBackground,
-  TouchableOpacity
+  ImageBackground
 } from 'react-native';
 
 import {
@@ -32,66 +30,16 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 const Stack = createStackNavigator();
-
-global.used_array = [];
-
-function make_api_call(callback) {
-  var fetch_string = '127.0.0.1/students';
-
-      const headers = {
-		"Accept": "application/json",
-		"Content-Type": 'application/json',
-      };
-
-axios.get('http://calvinb4.pythonanywhere.com/', {headers})
-  .then(function (response) {
-  console.log("hi");
-  console.log(response.data);
-  console.log(response.data.array);
-  global.used_array = response.data.array;
-    return response.data;
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
-/* g
-  fetch('127.0.0.1/students', {
-    method: 'GET',
-             headers: {
-		"Accept": "application/json",
-		"Content-Type": 'application/json',
-    },
-  })//.then(response => response.json())
-  .then((response) => {
-
-    console.log("WE DID IT");
-    console.log(response);
-    console.log(response.content);
-
-      callback(response);
-    })
-    .catch(error => {
-      console.error(error);
-    }); */
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: "#eaeaea"
-  }})
-
+const image = { uri: "banana.png" };
 
 const LoginScreen = ({ navigation, route }) => {
     const [value, onChangeText] = React.useState();
 
     const [pass_value, onChangePassText] = React.useState();
 
-  // const logo = require('./images/LastMinuteMeals_Logo.png');
-    const logo = require('./images/LastMinuteMeals_Banner1.png');
+   //const logo = require('./images/LMM_logo_new.png');
 
-
+    //const logo = require('./images/LastMinuteMeals_Banner1.png');
 const styles = StyleSheet.create({
   image: {
     flex: 1,
@@ -104,13 +52,15 @@ const styles = StyleSheet.create({
           style={{
             flex: 1,
             flexDirection: 'column',
-            justifyContent: 'space-evenly',
+            justifyContent: 'center',
             alignItems: 'stretch',
+            backgroundColor: '#b3e7dc'
           }}>
-  <ImageBackground source={require('./images/apple.jpg')} style={styles.image}>
+<ImageBackground source={require('./images/final_login_page.jpg')} style={styles.image}>
+
 
                 <TextInput
-                  style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                  style={{height: 40,borderColor: 'gray', borderWidth: 1}}
                   placeholder="username"
                   onChangeText={text => onChangeText(text)}
                   value={value}
@@ -124,44 +74,36 @@ const styles = StyleSheet.create({
                         value={pass_value}
                         id="password_field"
                       />
-    <Button
-      title="Login"
-      onPress={() =>
-        navigation.navigate('Home Screen', { name: 'test' })
+        <Button
+         title="Login"
+         color='#6c0102'
+        onPress={() =>
+            navigation.navigate('Home Screen', { name: 'test' })
       } />
 
           <Button
             title="Register"
+            color = "#6c0102"
   //          onPress={() =>
   //            navigation.navigate('Home Screen', { name: 'test' })
           //  }
              />
-
-             <TouchableOpacity
-             style={{width:100,
-             height:100,
-             justifyContent: 'center',
-             borderRadius:100,
-             alignItems:'center',
-             backgroundColor:'orange',}}>
-             <Text>Hello</Text>
-             </TouchableOpacity>
-
-             </ImageBackground>
-
+</ImageBackground>
     </View>
   );
 };
 
+
 const HomeScreen = ({ navigation }) => {
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    width: 390
 
-var expiring_soon = "Baby Arugula";
-var date = "4/12/21";
-
-var recommended_meal = "Mashed Potatoes with Vegetables";
-var recommended_ingredient_1 = "Potatoes";
-var recommended_ingredient_2 = "Baby Arugula";
-
+  }
+                 });
   return (
       <View
         style={{
@@ -169,37 +111,41 @@ var recommended_ingredient_2 = "Baby Arugula";
           flexDirection: 'column',
           justifyContent: 'space-evenly',
           alignItems: 'center',
+          backgroundColor: '#b3e7dc',
         }}>
+<ImageBackground source={require('./images/final_home_page.jpg')} style={styles.image}>
     <Text
             style={{
                 fontSize: 16,
-                backgroundColor: '#00FFFF'
+                color: '#6c0102',
+                alignContent: 'flex-start'
             }}>
     Welcome back! {'\n'}
-    Item expiring soon: {expiring_soon} expires on {date}{'\n'}
-    A recommended meal for today is: {recommended_meal} using ingredients: {recommended_ingredient_1} and {recommended_ingredient_2}{'\n'}</Text>
+    Item expiring soon: bananas expire on 04-17-21{'\n'}
+    A recommended meal for today is: Banana Pancakes using bananas, milk, and eggs.{'\n'}</Text>
 
                                   <Button
                                      title="View Virtual Fridge"
-                                     onPress={() => navigation.navigate('Virtual Fridge', { array: [{key: 'banana'}, {key: 'milk'}, {key: 'apple'}] })
+                                     color='#6c0102'
+
+                                     onPress={() => navigation.navigate('Virtual Fridge', { array: [{key: 'Bananas'}, {key: 'Milk'}, {key: 'Onion'}, {key: 'Eggs'}, {key: 'Pineapple'},{key: 'Garlic'}, {key: 'Butter'}, {key: 'Lemon'}] })
                                      }/>
 
               <Button
                  title="Scan Grocery Receipt"
+                 color='#6c0102'
                  onPress={() => navigation.navigate('Scan Grocery Receipt')
-                 }
-                             style={{
-                                 backgroundColor: '#d27d7d'
-                             }}
-                 />
+                 }/>
 
                         <Button
                            title="View Recipes"
+                           color='#6c0102'
                            onPress={() => navigation.navigate('Local Options')
                            }/>
 
                  <Button
                     title="Recycling and Compost Tips"
+                    color='#6c0102'
                     onPress={() => navigation.navigate('Recycling Tips')
                     }/>
 
@@ -209,35 +155,32 @@ var recommended_ingredient_2 = "Baby Arugula";
 
                                   <Button
                                      title="Settings/Preferences"
+                                     color='#6c0102'
                                      onPress={() => navigation.navigate('Settings')
                                      }/>
 
                                    <Button
                                      title="Logout"
+                                     color='#6c0102'
                                      onPress={() =>
                                        navigation.navigate('Login Screen')
                                      }
-                                   />
+                                  />
+</ImageBackground>
         </View>
   );
 };
 
 const ScanGroceryReceipt = ({ navigation, route }) => {
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    width: 400
 
-var json_data = '';
-
-var real_json = make_api_call(function(response) {
- json_data = response.array;
-console.log("?");
-       console.log(json_data);
-           });
-
-//var real_json = make_api_call();
-// console.log('here');
-// console.log(real_json);
-
-
-
+  }
+                 });
   return (
         <View
           style={{
@@ -245,23 +188,37 @@ console.log("?");
             flexDirection: 'column',
             justifyContent: 'space-evenly',
             alignItems: 'center',
+            width: 'auto',
+            backgroundColor: "#b3e7dc"
           }}>
+          <ImageBackground source={require('./images/generic_background_1.jpg')} style={styles.image}>
 
                                                   <Button
                                                      title="Scan Your Receipt"
-                                                 />
+                                                     color='#6c0102'/>
+
 
                                                    <Button
                                                      title="Select an Image"
-                                                 onPress={() => navigation.navigate('Confirm Items',  { array: global.used_array }) }
-
+                                                     color='#6c0102'
+                                                     onPress={() =>
+                                                      console.log("hi")
+                                                     }
                                                    />
+          </ImageBackground>
     </View>
   );
 };
 
 const RecyclingTips = ({ navigation, route }) => {
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
 
+  }
+                 });
   return (
         <View
           style={{
@@ -269,24 +226,39 @@ const RecyclingTips = ({ navigation, route }) => {
             flexDirection: 'column',
             justifyContent: 'space-evenly',
             alignItems: 'center',
+            backgroundColor:'#b3e7dc'
           }}>
+          <ImageBackground source={require('./images/final_recycle_page_2.jpg')} style={styles.image}>
                 <Text>Here are some link where you can learn more about how to recycle!</Text>
 
                       <Text style={{color: 'blue'}}
                       onPress={() => Linking.openURL('https://www.epa.gov/recycle/recycling-basics')}>
                       EPA Recycling Basics</Text>
 
-                                       <Button
-                                          title="Back"
-                                          onPress={() => navigation.navigate('Home Screen')
-                                          }/>
+                <Text>Compost Information:</Text>
+                <Text>~Banana peels can be put directly into the compost with no special treatment</Text>
+    <Text>Cutting banana peels into smaller pieces can speed up the composting process</Text>
+    <Text>For more information on where you can compost locally, visit:</Text>
+    <Text style={{color: 'blue'}}
+                          onPress={() => Linking.openURL('https://www.litterless.com/wheretocompost')}>
+                          Where to Compost Locally</Text>
+                        </ImageBackground>
     </View>
   );
 };
 
 const Settings = ({ navigation, route }) => {
-const [vegan_toggleCheckBox, vegan_setToggleCheckBox] = React.useState(false);
+  const [vegan_toggleCheckBox, vegan_setToggleCheckBox] = React.useState(false);
     const [vegetarian_toggleCheckBox, vegetarian_setToggleCheckBox] = React.useState(false);
+  const styles = StyleSheet.create({
+    image: {
+      flex: 1,
+      resizeMode: "cover",
+      justifyContent: "center",
+      width: 400
+
+    }
+                   });
   return (
         <View
           style={{
@@ -294,7 +266,9 @@ const [vegan_toggleCheckBox, vegan_setToggleCheckBox] = React.useState(false);
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
+            backgroundColor:'#b3e7dc'
           }}>
+          <ImageBackground source={require('./images/generic_background_1.jpg')} style={styles.image}>
           <Text>Only Show Vegan Recepies</Text>
                   <CheckBox
                     disabled={false}
@@ -308,12 +282,21 @@ const [vegan_toggleCheckBox, vegan_setToggleCheckBox] = React.useState(false);
                       value={vegetarian_toggleCheckBox}
                       onValueChange={(newValue) => vegetarian_setToggleCheckBox(newValue)}
                     />
+                    </ImageBackground>
     </View>
   );
 };
 
 const LocalOptions = ({ navigation, route }) => {
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    width: 400
 
+  }
+                 });
   return (
         <View
           style={{
@@ -321,36 +304,50 @@ const LocalOptions = ({ navigation, route }) => {
             flexDirection: 'column',
             justifyContent: 'space-evenly',
             alignItems: 'center',
+            backgroundColor: '#b3e7dc'
           }}>
+          <ImageBackground source={require('./images/generic_background_1.jpg')} style={styles.image}>
                          <Button
                             title="Recommended Recipes"
+                            color='#6c0102'
                               onPress={() => navigation.navigate('Recipe List', { array: [{key: 'quiche'}, {key: 'beef taco'}] })   }
                             />
 
                       <Button
                          title="Eco-Friendly Recipes"
+                         color='#6c0102'
                                 onPress={() => navigation.navigate('Recipe List', { array: [{key: 'quiche'}, {key: 'beef taco'}] })   }
 
                          />
 
                                 <Button
                                    title="All Recipes"
-                               onPress={() => navigation.navigate('Recipe List', { array: [{key: 'quiche'}, {key: 'beef taco'}] })   }
+                                   color='#6c0102'
+                               onPress={() => navigation.navigate('Recipe List', { array: [{key: 'Sweet Potato Tortilla Soup'}, {key: 'Baked Lemon-Butter Chicken Thighs'}, {key: 'Keto Cheeseburger Casserole'}, {key: 'Simple and Delicious Kale Soup'},{key: 'Old Fashioned Easy Apple Crisp'}, {key: 'Banana Pancakes'}, {key: 'Sheet Pan Ratatouille'}, {key: 'Breakfast Wrap'}] })   }
 
                                    />
+                                   </ImageBackground>
 
     </View>
   );
 };
 
 const VirtualFridge = ({ navigation, route }) => {
-
 const array = route.params.array;
 console.log("arr: ",array);
 var image_array = [{key: 'banana'}, {key: 'milk'},{key:'apple'}];
 
-const [images, set_images] = React.useState([{key:require('./images/banana.jpg')},{key:require('./images/milk.jpg')},{key:require('./images/apple.jpg')}]);
+const [images, set_images] = React.useState([{key:require('./images/banana.jpg')},{key:require('./images/milk.jpg')},{key:require('./images/onion.jpg')},{key:require('./images/egg.jpg')},{key:require('./images/pineapple.jpg')},{key:require('./images/garlic.jpg')},{key:require('./images/butter.jpg')},{key:require('./images/lemon.jpg')}]);
 var index = 0;
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+
+
+  }
+                 });
   return (
         <View
           style={{
@@ -358,7 +355,9 @@ var index = 0;
             flexDirection: 'column',
             justifyContent: 'space-evenly',
             alignItems: 'center',
+            backgroundColor: '#b3e7dc'
           }}>
+          <ImageBackground source={require('./images/final_grocery_page.jpg')} style={styles.image}>
           <FlatList
               horizontal={true}
               showsHorizontalScrollIndicator={true}
@@ -370,7 +369,8 @@ var index = 0;
                     width:260,
                     height:300,
                     borderWidth:2,
-                    borderColor:'#d35647',
+                    backgroundColor: '#a6b401',
+                    //borderColor:'#d35647',
                     resizeMode:'contain',
                     margin:8
                   }}
@@ -387,15 +387,26 @@ var index = 0;
                 renderItem={({item}) =>
                 <Text>{item.key}</Text>}
                 />
+                </ImageBackground>
     </View>
   );
 };
 
 const RecipeList = ({ navigation, route }) => {
-
 const array = route.params.array;
 console.log("arr: ",array);
+var image_array = [{key: 'banana'}, {key: 'milk'},{key:'apple'}];
 
+const [images, set_images] = React.useState([{key:require('./images/sweet_potato_tortilla_soup.png')},{key:require('./images/baked_lemon_butter_chicken_thighs.png')},{key:require('./images/keto_cheeseburger_casserole.png')},{key:require('./images/simple_and_delicious_kale_soup.png')},{key:require('./images/old_fashioned_easy_apple_crisp.png')},{key:require('./images/banana_pancakes.png')},{key:require('./images/sheet_pan_ratatouille.png')},{key:require('./images/breakfast_wrap_2.png')}]);
+var index = 0;
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+
+  }
+                 });
   return (
         <View
           style={{
@@ -403,45 +414,48 @@ console.log("arr: ",array);
             flexDirection: 'column',
             justifyContent: 'space-evenly',
             alignItems: 'center',
+            backgroundColor: '#b3e7dc'
           }}>
+          <ImageBackground source={require('./images/final_recipe_page.jpg')} style={styles.image}>
+          <FlatList
+              horizontal={true}
+              showsHorizontalScrollIndicator={true}
+              data={images}
+              renderItem={ ({ item, index }) => (
+                <Image source={item.key} // Use item to set the image source
+                  key={index} // Important to set a key for list items
+                  style={{
+                    width:260,
+                    height:300,
+                    borderWidth:2,
+                    backgroundColor: '#a6b401',
+                    //borderColor:'#d35647',
+                    resizeMode:'contain',
+                    margin:8
+                  }}
+                />
+                    )}
+
+
+
+                  />
+
                 <Text>Recipe List:</Text>
                 <FlatList
                 data={array}
                 renderItem={({item}) =>
                 <Text>{item.key}</Text>}
                 />
+                </ImageBackground>
     </View>
   );
 };
-
-const ConfirmItems = ({ navigation, route }) => {
-
-const array = route.params.array;
-console.log("arr: ",array);
-
-  return (
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-          }}>
-                <Text>Recipe List:</Text>
-                <FlatList
-                data={array}
-                renderItem={({item}) =>
-                <Text>{item.key}</Text>}
-                />
-    </View>
-  );
-};
-
-
 
 const App = () => {
 
   return (
+  <>
+
 
     <NavigationContainer>
       <Stack.Navigator>
@@ -454,11 +468,11 @@ const App = () => {
         <Stack.Screen name="Local Options" component={LocalOptions}/>
         <Stack.Screen name="Virtual Fridge" component={VirtualFridge}/>
         <Stack.Screen name="Recipe List" component={RecipeList}/>
-        <Stack.Screen name="Confirm Items" component={ConfirmItems} />
 
 
       </Stack.Navigator>
     </NavigationContainer>
+    </>
   );
 };
 
