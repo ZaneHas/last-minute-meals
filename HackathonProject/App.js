@@ -195,14 +195,18 @@ const styles = StyleSheet.create({
 
                                                   <Button
                                                      title="Scan Your Receipt"
-                                                     color='#6c0102'/>
+                                                     color='#6c0102'
+                                                                                                          onPress={() =>
+                                                                                            navigation.navigate('List Groceries')
+                                                                                                          }
+                                                     />
 
 
                                                    <Button
                                                      title="Select an Image"
                                                      color='#6c0102'
                                                      onPress={() =>
-                                                      console.log("hi")
+                                       navigation.navigate('Display Items')
                                                      }
                                                    />
           </ImageBackground>
@@ -540,6 +544,70 @@ const styles = StyleSheet.create({
   );
 };
 
+const DisplayItems = ({ navigation, route }) => {
+
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+
+  }
+                 });
+  return (
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+            backgroundColor: '#b3e7dc'
+          }}>
+          <ImageBackground source={require('./images/generic_background_1.jpg')} style={styles.image}>
+
+            <Image source={require('./images/receipt_demo_abr_ocr.png')}/>
+
+
+                </ImageBackground>
+    </View>
+  );
+};
+
+const ListGroceries = ({ navigation, route }) => {
+
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+
+  }
+                 });
+  return (
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+            backgroundColor: '#b3e7dc'
+          }}>
+          <ImageBackground source={require('./images/generic_background_1.jpg')} style={styles.image}>
+
+                <Text>Food Expiration Date {'\n'} Onion: 6/10/21 {'\n'}
+                Garlic 10/10/21 {'\n'}
+                Lemon	5/10/21 {'\n'}
+                Butter	11/10/21 {'\n'}
+                Banana	04/17/21 {'\n'}
+                Milk	04/17/21 {'\n'}
+                Eggs	05/15/21 {'\n'}
+                Pineapple	04/14/21 {'\n'}</Text>
+
+                </ImageBackground>
+    </View>
+  );
+};
+
 const App = () => {
 
   return (
@@ -557,7 +625,8 @@ const App = () => {
         <Stack.Screen name="Local Options" component={LocalOptions}/>
         <Stack.Screen name="Virtual Fridge" component={VirtualFridge}/>
         <Stack.Screen name="Recipe List" component={RecipeList}/>
-
+        <Stack.Screen name="Display Items" component={DisplayItems}/>
+        <Stack.Screen name="List Groceries" component={ListGroceries}/>
 
       </Stack.Navigator>
     </NavigationContainer>
