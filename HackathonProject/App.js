@@ -33,6 +33,8 @@ import {
 
 const Stack = createStackNavigator();
 
+global.used_array = [];
+
 function make_api_call(callback) {
   var fetch_string = '127.0.0.1/students';
 
@@ -43,7 +45,10 @@ function make_api_call(callback) {
 
 axios.get('http://calvinb4.pythonanywhere.com/', {headers})
   .then(function (response) {
-  console.log(response.data)
+  console.log("hi");
+  console.log(response.data);
+  console.log(response.data.array);
+  global.used_array = response.data.array;
     return response.data;
   })
   .catch(function (error) {
@@ -85,6 +90,15 @@ const LoginScreen = ({ navigation, route }) => {
 
   // const logo = require('./images/LastMinuteMeals_Logo.png');
     const logo = require('./images/LastMinuteMeals_Banner1.png');
+
+
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
+  }
+                 });
   return (
         <View
           style={{
@@ -93,18 +107,7 @@ const LoginScreen = ({ navigation, route }) => {
             justifyContent: 'space-evenly',
             alignItems: 'stretch',
           }}>
-
-           <Image source={logo} // Use item to set the image source
-                            style={{
-                              borderWidth:2,
-                              width:null,
-                              height:300,
-                              borderColor:'#d35647',
-                              resizeMode:'contain',
-                              alignItems: 'center',
-                              margin:8
-                            }}
-                          />
+  <ImageBackground source={require('./images/apple.jpg')} style={styles.image}>
 
                 <TextInput
                   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
@@ -143,6 +146,9 @@ const LoginScreen = ({ navigation, route }) => {
              backgroundColor:'orange',}}>
              <Text>Hello</Text>
              </TouchableOpacity>
+
+             </ImageBackground>
+
     </View>
   );
 };
@@ -175,7 +181,7 @@ var recommended_ingredient_2 = "Baby Arugula";
 
                                   <Button
                                      title="View Virtual Fridge"
-                                     onPress={() => navigation.navigate('Virtual Fridge', { array: [{key: 'milk'}, {key: 'ground beef'}] })
+                                     onPress={() => navigation.navigate('Virtual Fridge', { array: [{key: 'banana'}, {key: 'milk'}, {key: 'apple'}] })
                                      }/>
 
               <Button
@@ -220,15 +226,17 @@ const ScanGroceryReceipt = ({ navigation, route }) => {
 
 var json_data = '';
 
-                                     make_api_call(function(response) {
-                                                                  json_data = response;
-                                                      console.log("?");
-                                                                                  console.log(json_data);
-                                                                               //   var a = json_data.data;
-                                                                               //   console.log(a);
-                                                                                });
-var arr = []
-//for ()
+var real_json = make_api_call(function(response) {
+ json_data = response.array;
+console.log("?");
+       console.log(json_data);
+           });
+
+//var real_json = make_api_call();
+// console.log('here');
+// console.log(real_json);
+
+
 
   return (
         <View
@@ -245,7 +253,7 @@ var arr = []
 
                                                    <Button
                                                      title="Select an Image"
-                                                 onPress={() => navigation.navigate('Confirm Items',  { array: [json_data] }) }
+                                                 onPress={() => navigation.navigate('Confirm Items',  { array: global.used_array }) }
 
                                                    />
     </View>
